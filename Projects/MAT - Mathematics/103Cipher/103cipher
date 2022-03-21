@@ -1,0 +1,185 @@
+#!/usr/bin/env python3
+
+from sys import argv
+from math import sqrt, ceil, floor
+from argparse import ArgumentParser
+
+
+def manage_error(type: int) -> int:
+    if type == 1:
+        print("Bad lenght of arguments\n")
+
+    if type == 2:
+        print("Bad arguments\n")
+
+    print('Check "./103cipher -h" for more help')
+    return 84
+
+
+def transcrypt_key(key: str) -> tuple[list[list[int]], int]:
+    size: int = ceil(sqrt(len(key)))
+    transcripted_key = [[0 for i in range(size)] for j in range(size)]
+    converted_key: list[int] = []
+
+    for i in range(len(key)):
+        converted_key.append(ord(key[i]))
+    while len(converted_key) != size ** 2:
+        converted_key.append(0)
+
+    k: int = 0
+
+    for i in range(size):
+        for j in range(size):
+            transcripted_key[i][j] = converted_key[k]
+            k += 1
+    return transcripted_key, size
+
+
+def transcrypt_msg(msg: str, size: int) -> list[list[int]]:
+    converted_msg = []
+    for i in range(len(msg)):
+        converted_msg.append(ord(msg[i]))
+    while floor(len(converted_msg)) % size != 0:
+        converted_msg.append(0)
+
+    transcripted_msg = [
+        [0 for i in range(size)] for j in range(int(len(converted_msg) / size))
+    ]
+    l: int = 0
+
+    for i in range(int(len(converted_msg) / size)):
+        for j in range(size):
+            transcripted_msg[i][j] = converted_msg[l]
+            l += 1
+    return transcripted_msg
+
+
+def encrypt_msg(
+    transcripted_key: list[list[int]], transcripted_msg: list[list[int]], size: int
+) -> list[list[int]]:
+    encrypted_msg = [[0 for i in range(size)] for j in range(len(transcripted_msg))]
+
+    for i in range(len(transcripted_msg)):
+        for j in range(size):
+            for k in range(size):
+                encrypted_msg[i][j] += transcripted_key[k][j] * transcripted_msg[i][k]
+    return encrypted_msg
+
+
+def print_key(transcripted_key: list[list[int]], size: int) -> None:
+    print("Key matrix:")
+    for i in range(len(transcripted_key)):
+        for j in range(size):
+            print(f"{transcripted_key[i][j]} \t", end="")
+        print(f"")
+
+
+def print_new_msg(encrypted_msg: list[list[int]], size: int) -> None:
+    print("Encrypted message:")
+    for i in range(len(encrypted_msg)):
+        for j in range(size):
+            print(f"{encrypted_msg[i][j]} ", end="")
+    print(f"\n", end="")
+
+
+def encrypt(msg: str, key: str) -> int:
+    transcripted_key, size = transcrypt_key(key)
+    transcripted_msg = transcrypt_msg(msg, size)
+    encrypted_msg: list[list[int]] = encrypt_msg(
+        transcripted_key, transcripted_msg, size
+    )
+    print_key(transcripted_key, size)
+    print("\n")
+    print_new_msg(encrypted_msg, size)
+    return 0
+
+
+def store_msg(msg: str, size: int) -> list[list[int]]:
+    list_msg = list(map(int, msg.split()))
+    encrypted_msg: list[list[int]] = [
+        [0 for i in range(size)] for j in range(int(len(list_msg) / size))
+    ]
+    l: int = 0
+
+    for i in range(int(len(list_msg) / size)):
+        for j in range(size):
+            encrypted_msg[i][j] = list_msg[l]
+            l += 1
+    return encrypted_msg
+
+
+def create_identity_matrix(rows: int, cols: int) -> list[list[int]]:
+    identity_matrix: list[list[int]] = []
+
+    for i in range(cols):
+        identity_matrix.append([])
+        for j in range(rows):
+            identity_matrix[-1].append(0)
+    return identity_matrix
+
+
+def decrypt_msg(
+    transcripted_key: list[list[int]], encrypted_msg: list[list[int]], size: int
+) -> list[list[int]]:
+    identity_matrix: list[list[int]] = create_identity_matrix(size, len(encrypted_msg))
+    print(identity_matrix)
+
+    decrypted_msg: list[list[int]] = []
+    return decrypted_msg
+
+
+def decrypt(msg: str, key: str) -> int:
+    transcripted_key, size = transcrypt_key(key)
+    encrypted_msg = store_msg(msg, size)
+    decrypted_msg: list[list[int]] = decrypt_msg(transcripted_key, encrypted_msg, size)
+    # print_new_msg(decrypted_msg, size)
+    return 0
+
+
+def cipher(msg: str, key: str, flag: int) -> int:
+    if flag == 0:
+        return encrypt(msg, key)
+    elif flag == 1:
+        return decrypt(msg, key)
+    else:
+        return manage_error(2)
+
+
+def parse_args() -> tuple[str, str, int]:
+    parser = ArgumentParser()
+
+    parser.add_argument(
+        "message",
+        type=str,
+        help="a message, made of ASCII characters",
+    )
+
+    parser.add_argument(
+        "key",
+        type=str,
+        help="the encryption key, made of ASCII characters",
+    )
+
+    parser.add_argument(
+        "flag",
+        type=int,
+        choices=[0, 1],
+        help="0 for the message to be encrypted, 1 to be decrypted",
+    )
+
+    try:
+        args = parser.parse_args()
+    except SystemExit:
+        exit(84)
+
+    return args.message, args.key, args.flag
+
+
+def main() -> int:
+    msg, key, flag = parse_args()
+
+    return cipher(msg, key, flag)
+
+
+if __name__ == "__main__":
+    exit(main())

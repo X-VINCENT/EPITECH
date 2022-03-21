@@ -1,0 +1,14 @@
+USAGE
+    ./antman/antman [-h] file_to_compress file_type
+
+DESCRIPTION
+    File compressor.
+
+FILE TYPE
+    1 Lyrics
+    2 HTML Pages
+    3 PPM Pictures
+
+DECOMPRESS
+    ./giantman/giantman [-h] file_to_decompress file_type
+

@@ -1,0 +1,23 @@
+USAGE
+    ./my_defender [-h]
+
+DESCRIPTION
+    My Defender is a Tower Defense like game.
+
+USER_INTERACTIONS
+    ESC:    Pause menu / Quit the game
+
+    Space : Display Plants Damage Area
+
+    Mouse:  See with your eyes & click on buttons ;)
+
+MAPS
+    Size : 20x9
+    Objects :
+        - 1 : Grass
+        - 2 : Path
+        - 3 : Pot
+        - 4 : Spawner
+        - 5 : House
+
+And for sure ... ENJOY !!!

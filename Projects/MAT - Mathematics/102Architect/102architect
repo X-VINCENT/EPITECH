@@ -1,0 +1,112 @@
+#!/usr/bin/env python3
+
+from sys import argv
+from math import pi, cos, sin
+
+def print_help():
+    print("USAGE")
+    print("    ./102 architect x y transfo1 arg11 [arg12] [transfo2 arg12 [arg22]] ...\n")
+    print("DESCRIPTION")
+    print("    x   abscissa of the original point")
+    print("    y   ordinate of the original point\n")
+    print("    transfo arg1 [arg2]")
+    print("    -t i j  translation along vector (i, j)")
+    print("    -z m n  scaling by factors m (x-axis) and n (y-axis)")
+    print("    -r d    rotation centered in 0 by a d degree angle")
+    print("    -s d    reflection over the axis passing through 0 with an inclination")
+    print("            angle of d degrees")
+
+def translation(i, j, matrix):
+    try:
+        i = int(i)
+        j = int(j)
+    except ValueError:
+        print("Arguments must be integer\nMore help : \"./102architect -h\"")
+        return 84
+    print("Translation along vector ({i}, {j})")
+    matrix[2] += float(i)
+    matrix[5] += float(j)
+    return matrix
+
+def scaling(m, n, matrix):
+    try:
+        m = int(m)
+        n = int(n)
+    except ValueError:
+        print("Arguments must be integer\nMore help : \"./102architect -h\"")
+        return 84
+    print("Scaling by factors {m} and {n}")
+    matrix[0] *= float(m)
+    matrix[4] *= float(n)
+    return matrix
+
+def rotation(d, matrix):
+    try:
+        d = int(d)
+    except ValueError:
+        print("Arguments must be integer\nMore help : \"./102architect -h\"")
+        return 84
+    print("Rotation by a {d} degree angle")
+    matrix[0] = cos(float(d) / 180 * pi)
+    matrix[1] = -sin(float(d) / 180 * pi)
+    matrix[3] = sin(float(d) / 180 * pi)
+    matrix[4] = matrix[0]
+    return matrix
+
+def reflection(d, matrix):
+    try:
+        d = int(d)
+    except ValueError:
+        print("Arguments must be integer\nMore help : \"./102architect -h\"")
+        return 84
+    print("Reflection over an axis with an inclination angle of {d} degrees")
+    matrix[0] = cos(2 * float(d) / 180 * pi)
+    matrix[1] = sin(2 * float(d) / 180 * pi)
+    matrix[3] = sin(2 * float(d) / 180 * pi)
+    matrix[4] = -matrix[0]
+    return matrix
+
+def print_matrix(matrix):
+    print(f"{matrix[0]:.2f} \t{matrix[1]:.2f} \t{matrix[2]:.2f}")
+    print(f"{matrix[3]:.2f} \t{matrix[4]:.2f} \t{matrix[5]:.2f}")
+    print(f"{matrix[6]:.2f} \t{matrix[7]:.2f} \t{matrix[8]:.2f}")
+
+def main():
+    if len(argv) < 5:
+        if len(argv) == 2 and argv[1] == '-h':
+            print_help()
+            return 0
+        print("Incorrect number of arguments\nMore help : \"./102architect -h\"")
+        return 84
+    
+    try:
+        x = int(argv[1])
+        y = int(argv[2])
+    except ValueError:
+        print("Arguments must be integer\nMore help : \"./102architect -h\"")
+        return 84
+    
+    matrix = [1.00, 0.00, 0.00,
+              0.00, 1.00, 0.00,
+              0.00, 0.00, 1.00]
+    
+    x2 = float(x)
+    y2 = float(y)
+    
+    for i in range (len(argv)):
+        if (argv[i] == "-t"):
+            matrix = translation(argv[i + 1], argv[i + 2], matrix)
+        if (argv[i] == "-z"):
+            matrix = scaling(argv[i + 1], argv[i + 2], matrix)
+        if (argv[i] == "-r"):
+            matrix = rotation(argv[i + 1], matrix)
+        if (argv[i] == "-s"):
+            matrix = reflection(argv[i + 1], matrix)
+    
+    print_matrix(matrix)
+    calc1 = matrix[0] * x2 + matrix[1] * y2 + matrix[2]
+    calc2 = matrix[3] * x2 + matrix[4] * y2 + matrix[5]
+    print(f"({x2:.2f}, {y2:.2f}) => ({calc1:.2f}, {calc2:.2f})")
+
+if __name__ == "__main__":
+    exit(main())
