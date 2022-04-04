@@ -1,37 +1,20 @@
 
-<h1 align="center">EPITECH</h1>
+<h2 align="center">EPITECH</h2>
 
-<h3 align="center">Hello, here you can find all the projets I realized during my first year at EPITECH.</h3>
+Hello, here you can find all the projets I realized during my first year at EPITECH.
 
-<h2>CPE - Elementary Programming</h2>
 | Project | Language | Description |
 |---------|----------|-------------|
 | [Antman]       |      C      | Shell based on TCSH
 | [BSQ]          |      C      | Finding the biggest square in a map |
-| [PushSwap]     |      C      | List Sorting |
-
-<h2>DOP - DevOps</h2>
-| Project | Language | Description |
-|---------|----------|-------------|
 | [Popeye]       |    Docker   | Discovery of Docker : link DB, Java and Python to create a poll website |
-
-<h2>MAT - Mathematics</h2>
-| Project | Language | Description |
-|---------|----------|-------------|
 | [101Pong]      |    Python   | Recreate the pong game |
 | [102Architect] |    Python   | Apply translation, scaling, rotation and reflection to a matrix |
 | [103Cipher]    |      C      | Cipher and decypher a text using matrix |
-
-<h2>MUL - Graphical Programming</h2>
-| Project | Language | Description |
-|---------|----------|-------------|
 | [MyDefender]   |      C      | Tower Defense Game using CSFML (Plants vs. Zombies Theme) |
 | [MyHunter]     |      C      | Hunter Game using CSFML |
 | [MyRunner]     |      C      | Runner Game using CSFML (Winter Theme) |
-
-<h2>PSU - Unix System Programming</h2>
-| Project | Language | Description |
-|---------|----------|-------------|
+| [Pushswap]     |      C      | Sorting Algorithm |
 | [MyLS]         |      C      | Recode of ls command |
 | [MyPrintf]     |      C      | Recode of printf command |
 | [MySokoban]    |      C      | Sokoban Puzzle Game using ncurses |
