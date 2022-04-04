@@ -1,7 +1,7 @@
 
-<h2 align="center">EPITECH</h2>
+<h1 align="center">EPITECH</h1
 
-Hello, here you can find all the projets I realized during my first year at EPITECH.
+<h2 align="center">Hello, here you can find all the projets I realized during my first year at EPITECH.</h2>
 
 | Project | Language | Description |
 |---------|----------|-------------|
