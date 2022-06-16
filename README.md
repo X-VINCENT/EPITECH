@@ -35,4 +35,4 @@
 [MyPrintf]: https://github.com/X-VINCENT/EPITECH/tree/main/Projects/PSU%20-%20Unix%20System%20Programming/MyPrintf
 [MySokoban]: https://github.com/X-VINCENT/EPITECH/tree/main/Projects/PSU%20-%20Unix%20System%20Programming/MySokoban
 [Navy]: https://github.com/X-VINCENT/EPITECH/tree/main/Projects/PSU%20-%20Unix%20System%20Programming/Navy
-[EpyToDo]: https://github.com/X-VINCENT/EPITECH/tree/main/Projects/WEB%20%20Introduction%20to%20Web%20Development/EpyToDo
+[EpyToDo]: https://github.com/X-VINCENT/EPITECH/tree/main/Projects/WEB%20-%20Introduction%20to%20Web%20Development/EpyToDo
